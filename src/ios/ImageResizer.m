@@ -13,6 +13,7 @@
     NSDictionary* arguments = [command.arguments objectAtIndex:0];
     NSString* imageUrlString = [arguments objectForKey:@"uri"];
     NSString* quality = [arguments objectForKey:@"quality"];
+    NSString* docsPath = [arguments objectForKey:@"folderName"];
     CGSize frameSize = CGSizeMake([[arguments objectForKey:@"width"] floatValue], [[arguments objectForKey:@"height"] floatValue]);
 
     //Get the image from the path
@@ -58,7 +59,7 @@
     UIGraphicsEndImageContext();
 
     // get the temp directory path
-    NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
+    // NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
 
@@ -67,7 +68,8 @@
     NSData* data = UIImageJPEGRepresentation(newImage, [quality floatValue] / 100.0f);
     int i = 1;
     do {
-        filePath = [NSString stringWithFormat:@"%@/%@%03d.%@", docsPath, PROTONET_PHOTO_PREFIX, i++, @"jpg"];
+        int rnd = arc4random() % 9999;
+        filePath = [NSString stringWithFormat:@"%@/%@%04d%03d.%@", docsPath, PROTONET_PHOTO_PREFIX, rnd, i++, @"jpg"];
     } while ([fileMgr fileExistsAtPath:filePath]);
 
     // save file
