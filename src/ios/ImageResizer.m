@@ -69,7 +69,7 @@
     int i = 1;
     do {
         int rnd = arc4random() % 9999;
-        filePath = [NSString stringWithFormat:@"%@/%@%04d%03d.%@", docsPath, PROTONET_PHOTO_PREFIX, rnd, i++, @"jpg"];
+        filePath = [NSString stringWithFormat:@"%@%@%04d%03d.%@", docsPath, PROTONET_PHOTO_PREFIX, rnd, i++, @"jpg"];
     } while ([fileMgr fileExistsAtPath:filePath]);
 
     // save file
